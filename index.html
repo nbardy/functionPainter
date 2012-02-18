@@ -12,11 +12,13 @@ h1 {margin: auto;}
 <canvas id="painter"></canvas>
 <h4>Input functions as f(x,y):
 <br>
-Red Function: <input type="text" id="redFunction" />
-Green Function: <input type="text" id="greenFunction" />
-Blue Function: <input type="text" id="blueFunction" />
+Red Function: <input type="text" value='Math.sin(x)*255' id="redFunction" />
+Green Function: <input type="text" value= 'Math.cos(y)*50 + 134' id="greenFunction" />
+Blue Function: <input type="text" value='Math.sin(x + y)*134' id="blueFunction" />
 <form>
 <button id="submit" type="button" value="Draw it." onclick="update();">Draw It.</button>
+<h5>Things to try</h5>
+<p> Math.sin(Math.sqrt(Math.pow(x-374,2)+Math.pow(y-23)))</p>
 </form>
 </body>
 </html>
