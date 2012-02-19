@@ -12,22 +12,23 @@ h1 {margin: auto;}
 <canvas id="painter"></canvas>
 <h4>Input functions as f(x,y):
 <br>
-Red Function: <input type="text" value='Math.sin(x)*255' size='100' id="redFunction" />
+Red Function: <input type="text" value='Math.sin(x)*255 + t*t' size='100' id="redFunction" />
 <br>
 Green Function: <input type="text" value= 'Math.cos(y)*50 + 134' size='100'id="greenFunction" />
 <br>
 Blue Function: <input type="text" value='Math.sin(x + y)*134' size='100'id="blueFunction" />
 <br>
 <br>
-<input type='checkbox' id='tVariable'>Use variable t for time</input>
+<input type='checkbox' id='tVariable' checked='true'>Use variable t for time</input>
 <br>
-Interval in miliseconds: <input type='number' value='1000' step="100" min="0" id='tInterval' />
+Interval in miliseconds: <input type='number' value='0' step="100" min="0" id='tInterval' />
 <br>
 <form>
-<button id="submit" type="button" value="Draw it." onclick="update();">Draw It.</button>
+<button id="start" type="button" value="Draw it." onclick="javascript:draw();" >Draw It.</button>
+<button id="stop" type="button" value="Stop it."  onclick="javascript:stopDraw();" >Stop It.</button>
 <br>
 <h5>Things to try</h5>
-<p> Math.sin(Math.sqrt(Math.pow(x-374,2)+Math.pow(y-23, 2)))</p>
+<p>Math.sin(Math.sqrt(Math.pow(x-374,2)+Math.pow(y-23, 2)))</p>
 </form>
 </body>
 </html>

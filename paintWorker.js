@@ -1,19 +1,31 @@
-self.addEventListener('message', function(e) { startThisWorker(e);});
+self.addEventListener('message', function(e) {
+   if (e.data.command == 'start') {
+      startThisWorker(e);
+      }
+   else if (e.data.command == 'stop') {
+      self.close();
+   }
+   else { 
+      //do nothing 
+      }
+   });
 
 function startThisWorker(e) { 
-   
+   currenttime = 0;
+   eval("function redFunc(x,y,t) { return " + e.data.redstring + ";}");
+   eval("function greenFunc(x,y,t) { return " + e.data.greenstring + ";}");
+   eval("function blueFunc(x,y,z,t) { return " + e.data.bluestring + ";}");
+
+   drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, e.data.currenttime);
    if(e.data.tstate){
-      currenttime = 0;
       setInterval( function() {
-         drawPicture(e.data.imageData, e.data.width, e.data.height, e.data.redstring, e.data.greenstring, e.data.bluestring, currenttime); 
+         drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, currenttime); 
          currenttime += 1;
-      }, e.data.tinverval);
+      }, e.data.tinterval);
    }
-   else
-      drawPicture(e.data.imageData, e.data.width, e.data.height, e.data.redstring, e.data.greenstring, e.data.bluestring, e.data.currenttime);
 }
 
-function drawPicture(imageData, width, height, redstring, greenstring, bluestring, t) {
+function drawPicture(imageData, width, height, redFunc, greenFunc, blueFunc, t) {
    pos = 0; // index position into imagedata array
 
    // walk left-to-right, top-to-bottom; it's the
@@ -24,9 +36,9 @@ function drawPicture(imageData, width, height, redstring, greenstring, bluestrin
          // calculate sine based on distance
 
          // calculate RGB values based on sine
-         r = eval(redstring);
-         b = eval(bluestring);
-         g = eval(greenstring);
+         r = redFunc(x,y,t);
+         b = blueFunc(x,y,t);
+         g = greenFunc(x,y,t);
 
          // set red, green, blue, and alpha:
          imageData.data[pos++] = clamp(r);
@@ -36,7 +48,7 @@ function drawPicture(imageData, width, height, redstring, greenstring, bluestrin
      }
    }
 
-   self.postMessage({'imageData': imageData, 't':t});
+   self.postMessage({'imageData': imageData});
 }
 
 function clamp(value) {

@@ -1,4 +1,4 @@
-function update() {
+function draw() {
    //Retrieve information from the dom
    canvasDraw = document.getElementById('painter');
    context = canvasDraw.getContext('2d');
@@ -18,6 +18,19 @@ function update() {
 
    //Fill pixel grid with data
    startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate);
+   
+   //Add stop button if time variable is included
+   if (tstate) {
+      document.getElementById('stop').disabled=false;
+      document.getElementById('start').disabled=true;
+   }
+
+}
+
+function stopDraw() {
+   drawWorker.postMessage({'command': 'stop'});
+   document.getElementById('stop').disabled=true;
+   document.getElementById('start').disabled=false;
 }
 
 function startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate) {
@@ -25,7 +38,7 @@ function startDrawWorker(imageData, width, height, redstring, greenstring, blues
    drawWorker = new Worker('paintWorker.js');
 
    //Add Event listener to paste results on the canvas 
-   drawWorker.addEventListener('message', function(e) {console.log( e.data.t); context.putImageData(e.data.imageData, 0, 0)});
+   drawWorker.addEventListener('message', function(e) {context.putImageData(e.data.imageData, 0, 0)});
 
    //Post initial Message to Worker
    drawWorker.postMessage({'command': 'start',
