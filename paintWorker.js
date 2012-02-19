@@ -14,7 +14,7 @@ function startThisWorker(e) {
    currenttime = 0;
    eval("function redFunc(x,y,t) { return " + e.data.redstring + ";}");
    eval("function greenFunc(x,y,t) { return " + e.data.greenstring + ";}");
-   eval("function blueFunc(x,y,z,t) { return " + e.data.bluestring + ";}");
+   eval("function blueFunc(x,y,t) { return " + e.data.bluestring + ";}");
 
    drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, e.data.currenttime);
    if(e.data.tstate){
