@@ -3,7 +3,7 @@
 <title>Function Painter</title>
 <script src="painter.js" /></script>
 <style type="text/css">
-canvas {background-color: white; width: 800; height: 600; margin: auto;}
+canvas {background-color: white; width: 400; height: 400; margin: auto;}
 h1 {margin: auto;}
 </style>
 </head>
@@ -13,12 +13,21 @@ h1 {margin: auto;}
 <h4>Input functions as f(x,y):
 <br>
 Red Function: <input type="text" value='Math.sin(x)*255' id="redFunction" />
+<br>
 Green Function: <input type="text" value= 'Math.cos(y)*50 + 134' id="greenFunction" />
+<br>
 Blue Function: <input type="text" value='Math.sin(x + y)*134' id="blueFunction" />
+<br>
+<br>
+<input type='checkbox' id='tVariable'>Use variable t for time</input>
+<br>
+Interval in miliseconds: <input type='number' value='1000' step="100" min="0" id='tInterval' />
+<br>
 <form>
 <button id="submit" type="button" value="Draw it." onclick="update();">Draw It.</button>
+<br>
 <h5>Things to try</h5>
-<p> Math.sin(Math.sqrt(Math.pow(x-374,2)+Math.pow(y-23)))</p>
+<p> Math.sin(Math.sqrt(Math.pow(x-374,2)+Math.pow(y-23, 2)))</p>
 </form>
 </body>
 </html>

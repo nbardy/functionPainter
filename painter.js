@@ -11,38 +11,34 @@ function update() {
    greenstring = document.getElementById('greenFunction').value;
    bluestring = document.getElementById('blueFunction').value;
 
+   tstate = document.getElementById('tVariable').checked;
+   tinterval = parseInt(document.getElementById('tInterval').value);
+   
+   imageData = context.createImageData(width, height);
+
    //Fill pixel grid with data
-   drawPicture(imageData, width, height, redstring, greenstring, bluestring);
-
-   //Place picture on canvas
-   context.putImageData(imageData, 0, 0);
+   startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate);
 }
 
-function drawPicture(imageData, width, height, redstring, greenstring, bluestring) {
-   pos = 0; // index position into imagedata array
+function startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate) {
+   //Create Worker
+   drawWorker = new Worker('paintWorker.js');
 
-   // walk left-to-right, top-to-bottom; it's the
-   // same as the ordering in the imagedata array:
+   //Add Event listener to paste results on the canvas 
+   drawWorker.addEventListener('message', function(e) {console.log( e.data.t); context.putImageData(e.data.imageData, 0, 0)});
 
-   for (y = 0; y < height; y++) {
-     for (x = 0; x < width; x++) {
-         // calculate sine based on distance
+   //Post initial Message to Worker
+   drawWorker.postMessage({'command': 'start',
+                       'imageData': imageData,
+                       'width': width,
+                       'height': height,
+                       'redstring': redstring,
+                       'greenstring': greenstring,
+                       'bluestring': bluestring,
+                       'tstate': tstate,
+                       'tinterval': tinterval});
 
-         // calculate RGB values based on sine
-         r = eval(redstring);
-         b = eval(bluestring);
-         g = eval(greenstring);
-
-         // set red, green, blue, and alpha:
-         imageData.data[pos++] = clamp(r);
-         imageData.data[pos++] = clamp(g);
-         imageData.data[pos++] = clamp(b);
-         imageData.data[pos++] = 0xff; // alpha
-     }
-   }
+   return drawWorker;
 }
 
-function clamp(value) {
-   return Math.max(0, Math.min(255, value));
-}
 
