@@ -6,7 +6,7 @@ self.addEventListener('message', function(e) {
       self.close();
    }
    else { 
-      //do nothing 
+      //do nothing if command is not known
       }
    });
 
@@ -16,7 +16,7 @@ function startThisWorker(e) {
    eval("function greenFunc(x,y,t) { return " + e.data.greenstring + ";}");
    eval("function blueFunc(x,y,t) { return " + e.data.bluestring + ";}");
 
-   drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, e.data.currenttime);
+   drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, currenttime);
    if(e.data.tstate){
       setInterval( function() {
          drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, currenttime); 
@@ -27,28 +27,29 @@ function startThisWorker(e) {
 
 function drawPicture(imageData, width, height, redFunc, greenFunc, blueFunc, t) {
    pos = 0; // index position into imagedata array
+   minimum = {'red':255, 'blue':255, 'green':255};
+   maximum = {'red':0, 'blue':0, 'green':0};
 
    // walk left-to-right, top-to-bottom; it's the
    // same as the ordering in the imagedata array:
 
    for (y = 0; y < height; y++) {
      for (x = 0; x < width; x++) {
-         // calculate sine based on distance
-
+         
          // calculate RGB values based on sine
-         r = redFunc(x,y,t);
-         b = blueFunc(x,y,t);
-         g = greenFunc(x,y,t);
+         r = clamp(redFunc(x,y,t));
+         b = clamp(blueFunc(x,y,t));
+         g = clamp(greenFunc(x,y,t));
 
          // set red, green, blue, and alpha:
-         imageData.data[pos++] = clamp(r);
-         imageData.data[pos++] = clamp(g);
-         imageData.data[pos++] = clamp(b);
+         imageData.data[pos++] = r;
+         imageData.data[pos++] = g;
+         imageData.data[pos++] = b;
          imageData.data[pos++] = 0xff; // alpha
      }
    }
 
-   self.postMessage({'imageData': imageData});
+   self.postMessage({'imageData': imageData, 'maximum': maximum, 'minimum': minimum});
 }
 
 function clamp(value) {

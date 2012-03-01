@@ -21,16 +21,18 @@
    </style>
 </head>
 <body>
+   <a href="http://github.com/DivisibleZero/PixelMapper"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+
    <h1>Function Painter</h1>
 
-   <canvas id="painter"></canvas>
+   <canvas id="painter" width="200" height="200"></canvas>
 
    <h2>Input functions as f(x,y):</h2>
 
    <div id="functions">
-      <label for="redFunction">Red Function:</label> <input type="text" value='Math.sin(x)*255 + t*t' size='100' id="redFunction" /><br />
-      <label for="greenFunction">Green Function:</label> <input type="text" value= 'Math.cos(y)*50 + 134' size='100'id="greenFunction" /><br />
-      <label for="blueFunction">Blue Function:</label> <input type="text" value='Math.sin(x + y)*134' size='100'id="blueFunction" /><br />
+      <label for="redFunction">Red Function:</label> <input type="text" value='123+123*Math.sin(t/30)*Math.sin(t/120*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100' id="redFunction" /><br />
+      <label for="greenFunction">Green Function:</label> <input type="text" value='123+123*Math.sin(t/200)*Math.sin(t/123*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="greenFunction" /><br />
+      <label for="blueFunction">Blue Function:</label> <input type="text" value='123+123*Math.sin(t/20)*Math.sin(t/320*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="blueFunction" /><br />
    </div>
 
    <div id="options">
@@ -45,6 +47,7 @@
 
    <h2>Things to try</h2>
    <ul>
+   <li>8/(2*2*(x^2-y^2))*Math.cos((x - y)/2*t)*Math.sin((x+y)/2)*t</p>
       <li>255*Math.sin(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)))</li>
       <li>(x^x + y^y)^t</li>
       <li>255/Math.sin(Math.sqrt(x*x + y*y) - t*t*Math.atan2(y, x))</li>
