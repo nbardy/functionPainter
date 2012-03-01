@@ -10,6 +10,9 @@ self.addEventListener('message', function(e) {
       }
    });
 
+// Define some handy aliases for the basic math functions and constants
+var abs = Math.abs, acos = Math.acos, asin = Math.asin, atan = Math.atan, atan2 = Math.atan2, ceil = Math.ceil, cos = Math.cos, exp = Math.exp, floor = Math.floor, log = Math.log, max = Math.max, min = Math.min, pow = Math.pow, random = Math.random, round = Math.round, sin = Math.sin, sqrt = Math.sqrt, tan = Math.tan, E = Math.E, PI = Math.PI;
+
 function startThisWorker(e) { 
    currenttime = 0;
    eval("function redFunc(x,y,t) { return " + e.data.redstring + ";}");
