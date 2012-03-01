@@ -14,10 +14,14 @@ function draw() {
    tstate = document.getElementById('tVariable').checked;
    tinterval = parseInt(document.getElementById('tInterval').value);
    
+   adjust = document.getElementById('adjust').checked;
+   
    imageData = context.createImageData(width, height);
 
-   //Fill pixel grid with data
+   //Start worker for drawing data from function
    startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate);
+   
+
    
    //Add stop button if time variable is included
    if (tstate) {
@@ -38,7 +42,7 @@ function startDrawWorker(imageData, width, height, redstring, greenstring, blues
    drawWorker = new Worker('paintWorker.js');
 
    //Add Event listener to paste results on the canvas 
-   drawWorker.addEventListener('message', function(e) {context.putImageData(e.data.imageData, 0, 0)});
+   drawWorker.addEventListener('message', function(e) {handleMessage(e.data)});
 
    //Post initial Message to Worker
    drawWorker.postMessage({'command': 'start',
@@ -54,4 +58,6 @@ function startDrawWorker(imageData, width, height, redstring, greenstring, blues
    return drawWorker;
 }
 
-
+function handleMessage(data) {
+      context.putImageData(data.imageData, 0, 0);
+}

@@ -1,34 +1,36 @@
 <html>
 <head>
 <title>Function Painter</title>
-<script src="painter.js" /></script>
 <style type="text/css">
-canvas {background-color: white; width: 400; height: 400; margin: auto;}
+canvas {background-color: white; margin: auto;}
 h1 {margin: auto;}
 </style>
+<script src="painter.js" /></script>
 </head>
 <body>
+<a href="http://github.com/DivisibleZero/PixelMapper"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
 <h1>Function Painter</h1>
-<canvas id="painter"></canvas>
+<canvas id="painter" width="400" height="400"></canvas>
 <h4>Input functions as f(x,y):
 <br>
-Red Function: <input type="text" value='Math.sin(x)*255 + t*t' size='100' id="redFunction" />
+Red Function: <input type="text" value='123+123*Math.sin(t/30)*Math.sin(t/120*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100' id="redFunction" />
 <br>
-Green Function: <input type="text" value= 'Math.cos(y)*50 + 134' size='100'id="greenFunction" />
+Green Function: <input type="text" value='123+123*Math.sin(t/200)*Math.sin(t/123*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="greenFunction" />
 <br>
-Blue Function: <input type="text" value='Math.sin(x + y)*134' size='100'id="blueFunction" />
+Blue Function: <input type="text" value=' 123+123*Math.sin(t/20)*Math.sin(t/320*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="blueFunction" />
 <br>
 <br>
 <input type='checkbox' id='tVariable' checked='true'>Use variable t for time</input>
 <br>
 Interval in miliseconds: <input type='number' value='0' step="100" min="0" id='tInterval' />
 <br>
-<form>
+<input type='checkbox' id='adjust' checked='true'>Fit distribution to have min 0 and max 255</input>
+<br>
 <button id="start" type="button" value="Draw it." onclick="javascript:draw();" >Draw It.</button>
 <button id="stop" type="button" value="Stop it."  onclick="javascript:stopDraw();" >Stop It.</button>
 <br>
 <h5>Things to try</h5>
+<p>8/(2*2*(x^2-y^2))*Math.cos((x - y)/2*t)*Math.sin((x+y)/2)*t</p>
 <p>Math.sin(Math.sqrt(Math.pow(x-374,2)+Math.pow(y-23, 2)))</p>
-</form>
 </body>
 </html>
