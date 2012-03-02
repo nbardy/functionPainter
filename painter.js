@@ -14,7 +14,7 @@ function draw() {
    tstate = document.getElementById('tVariable').checked;
    tinterval = parseInt(document.getElementById('tInterval').value);
    
-   adjust = document.getElementById('adjust').checked;
+   //adjust = document.getElementById('adjust').checked;
    
    imageData = context.createImageData(width, height);
 

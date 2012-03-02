@@ -30,9 +30,9 @@
    <h2>Input functions as f(x,y):</h2>
 
    <div id="functions">
-      <label for="redFunction">Red Function:</label> <input type="text" value='123+123*Math.sin(t/30)*Math.sin(t/120*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100' id="redFunction" /><br />
-      <label for="greenFunction">Green Function:</label> <input type="text" value='123+123*Math.sin(t/200)*Math.sin(t/123*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="greenFunction" /><br />
-      <label for="blueFunction">Blue Function:</label> <input type="text" value='123+123*Math.sin(t/20)*Math.sin(t/320*Math.sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="blueFunction" /><br />
+      <label for="redFunction">Red Function:</label> <input type="text" value='123+123*sin(t/30)*sin(t/120*sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100' id="redFunction" /><br />
+      <label for="greenFunction">Green Function:</label> <input type="text" value='123+123*sin(t/200)*sin(t/123*sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="greenFunction" /><br />
+      <label for="blueFunction">Blue Function:</label> <input type="text" value='123+123*sin(t/20)*sin(t/320*sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="blueFunction" /><br />
    </div>
 
    <div id="options">
@@ -47,15 +47,15 @@
 
    <h2>Things to try</h2>
    <ul>
-      <li>8/(2*2*(x^2-y^2))*Math.cos((x - y)/2*t)*Math.sin((x+y)/2)*t</li>
-      <li>255*Math.sin(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)))</li>
+      <li>8/(2*2*(x^2-y^2))*cos((x - y)/2*t)*sin((x+y)/2)*t</li>
+      <li>255*sin(sqrt(pow(x, 2) + pow(y, 2)))</li>
       <li>(x^x + y^y)^t</li>
-      <li>255/Math.sin(Math.sqrt(x*x + y*y) - t*t*Math.atan2(y, x))</li>
+      <li>255/sin(sqrt(x*x + y*y) - t*t*atan2(y, x))</li>
       <li><strong>WARNING: May induce seizures</strong>
          <ul>
             <li>Red: 255*(t%2)</li>
-            <li>Red: 255*(t%3)</li>
-            <li>Red: 255*(t%4)</li>
+            <li>Green: 255*(t%3)</li>
+            <li>Blue: 255*(t%4)</li>
          </ul>
       </li>
    </ul>
