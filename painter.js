@@ -1,3 +1,44 @@
+$(function() {
+   window.addEventListener("selectstart", function (e) {
+      // If the select event is triggered on the #painter object, prevent the default behavior.
+      // This prevents the browser for annoyingly trying to select things when you're clicking/dragging to pan through the canvas.
+      if ($(e.target)[0] == $('#painter')[0])
+         e.preventDefault();
+   });
+
+   $('#painter').mousedown(function (e) {
+      if (e.which == 1)
+      {
+         this.panning = true;
+
+         this.prevMousePosition = getMousePosition(e, this);
+      }
+   }).mouseup(function (e) {
+      this.panning = false;
+   }).mousemove(function (e) {
+      if (this.panning && typeof drawWorker != 'undefined')
+      {
+         var mousePosition = getMousePosition(e, this);
+
+         drawWorker.postMessage({
+            'command': 'pan',
+            'x': mousePosition.x - this.prevMousePosition.x,
+            'y': mousePosition.y - this.prevMousePosition.y
+         });
+
+         this.prevMousePosition = mousePosition;
+      }
+   });
+
+   // Returns the position of the mouse relative to the given object
+   function getMousePosition(event, object)
+   {
+      var mouseX = event.pageX - $(object).offset().left;
+      var mouseY = event.pageY - $(object).offset().top;
+      return { x: mouseX, y: mouseY };
+   }
+});
+
 function draw() {
    //Retrieve information from the dom
    canvasDraw = document.getElementById('painter');
