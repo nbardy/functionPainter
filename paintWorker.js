@@ -30,8 +30,6 @@ function startThisWorker(e) {
 
 function drawPicture(imageData, width, height, redFunc, greenFunc, blueFunc, t) {
    pos = 0; // index position into imagedata array
-   minimum = {'red':255, 'blue':255, 'green':255};
-   maximum = {'red':0, 'blue':0, 'green':0};
 
    // walk left-to-right, top-to-bottom; it's the
    // same as the ordering in the imagedata array:
