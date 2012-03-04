@@ -1,2 +1,12 @@
-* Allow user to pan through the drawing by clicking and drawing with the mouse
+* Allow user to pan through the drawing by clicking and drawing with the mouse.
   * The drawing should probably be paused while they click and drag, at least in the sense that t should be fixed while they drag.
+* Find a way to make the functions safe/not-allowing-user-to-execute-arbitrary-code, so that they can be shared safely.
+  * Would it be enough to just use a regex to ensure that only certain code can be used in the functions?
+    Say that we only allow the math functions (sin, cos, sqrt, etc.) and the characters xyt+-*/%()^|&
+    That would be safe, but then users wouldn't be able to define piecewise functions using if and whatnot (my rainbow functions wouldn't work!)
+    If you further allow ? and : then they would be able to use the trinary operator to do piecewise stuff, but this could get kind of messy.
+    What about the preprocessor? It would need to use = and I think ; too (are semicolons required in javascript?).
+  * Is it guaranteed to be safe already with web workers? Is there any way for the code to do anything bad from within the web worker? Is there any way for the code to escape the confines of the web worker and do bad stuff outside of it?
+
+    No matter how impossible it should be for someone to do anything really bad from inside the web worker, it still doesn't seem like a good idea to be directly eval'ing user input. I think the best thing is to just have a whitelist of allowed words and characters, and we can add to this whitelist if the need arises, but it should probably start of very minimal.
+* Add a preprocessor
