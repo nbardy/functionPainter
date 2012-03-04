@@ -33,7 +33,7 @@
    <div id="functions">
       <label for="redFunction">Red Function:</label> <input type="text" value='(21*sin(x+y)*t/50+(x-y))^t' size='100' id="redFunction" /><br />
       <label for="greenFunction">Green Function:</label> <input type="text" value='(5*sin(x-y)*t/50+(x+y))^t' size='100'id="greenFunction" /><br />
-      <label for="blueFunction">Blue Function:</label> <input type="text" value='123+123*sin(t/20)*sin(t/320*sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="blueFunction" /><br />
+      <label for="blueFunction">Blue Function:</label> <input type="text" value='123+123*sin(t/20)*sin(t/320*sqrt(bx*bx + by*by))' size='100'id="blueFunction" /><br />
    </div>
 
    <div id="options">
@@ -47,7 +47,7 @@
    </div>
 
    <h3>Preprocessor</h3>
-   <textarea id="preprocessor" rows="15" cols="80"></textarea>
+   <textarea id="preprocessor" rows="15" cols="80">bx = 123 - x; by = 45 - y;</textarea>
 
    <h2>Things to try</h2>
    <ul>
