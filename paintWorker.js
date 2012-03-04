@@ -24,17 +24,18 @@ function startThisWorker(e) {
    eval("function redFunc(x,y,t) { return " + e.data.redstring + ";}");
    eval("function greenFunc(x,y,t) { return " + e.data.greenstring + ";}");
    eval("function blueFunc(x,y,t) { return " + e.data.bluestring + ";}");
+   eval("function getColor(x,y,t) { " + e.data.preprocessorString + " return { r: clamp(redFunc(x,y,t)), g: clamp(greenFunc(x,y,t)), b: clamp(blueFunc(x,y,t)) }; }");
 
-   drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, currenttime);
+   drawPicture(e.data.imageData, e.data.width, e.data.height, getColor, currenttime);
    if(e.data.tstate){
       setInterval( function() {
-         drawPicture(e.data.imageData, e.data.width, e.data.height, redFunc, greenFunc, blueFunc, currenttime); 
+         drawPicture(e.data.imageData, e.data.width, e.data.height, getColor, currenttime); 
          currenttime += 1;
       }, e.data.tinterval);
    }
 }
 
-function drawPicture(imageData, width, height, redFunc, greenFunc, blueFunc, t) {
+function drawPicture(imageData, width, height, getColor, t) {
    pos = 0; // index position into imagedata array
 
    // walk left-to-right, top-to-bottom; it's the
@@ -43,18 +44,16 @@ function drawPicture(imageData, width, height, redFunc, greenFunc, blueFunc, t) 
    for (y = 0; y < height; y++) {
      for (x = 0; x < width; x++) {
 
-        var pannedX = x - xOffset;
-        var pannedY = y - yOffset;
-         
-         // calculate RGB values based on sine
-         r = clamp(redFunc(pannedX, pannedY, t));
-         b = clamp(blueFunc(pannedX, pannedY, t));
-         g = clamp(greenFunc(pannedX, pannedY, t));
+         var pannedX = x - xOffset;
+         var pannedY = y - yOffset;
+        
+         // Calculate rgb values
+         color = getColor(pannedX, pannedY, t);
 
          // set red, green, blue, and alpha:
-         imageData.data[pos++] = r;
-         imageData.data[pos++] = g;
-         imageData.data[pos++] = b;
+         imageData.data[pos++] = color.r;
+         imageData.data[pos++] = color.g;
+         imageData.data[pos++] = color.b;
          imageData.data[pos++] = 0xff; // alpha
      }
    }

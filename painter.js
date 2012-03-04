@@ -51,6 +51,7 @@ function draw() {
    redstring = document.getElementById('redFunction').value;
    greenstring = document.getElementById('greenFunction').value;
    bluestring = document.getElementById('blueFunction').value;
+   preprocessorString = document.getElementById('preprocessor').value;
 
    tstate = document.getElementById('tVariable').checked;
    tinterval = parseInt(document.getElementById('tInterval').value);
@@ -60,7 +61,7 @@ function draw() {
    imageData = context.createImageData(width, height);
 
    //Start worker for drawing data from function
-   startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate);
+   startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, preprocessorString, tinterval, tstate);
    
 
    
@@ -78,7 +79,7 @@ function stopDraw() {
    document.getElementById('start').disabled=false;
 }
 
-function startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate) {
+function startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, preprocessorString, tinterval, tstate) {
    //Create Worker
    drawWorker = new Worker('paintWorker.js');
 
@@ -94,7 +95,9 @@ function startDrawWorker(imageData, width, height, redstring, greenstring, blues
                        'greenstring': greenstring,
                        'bluestring': bluestring,
                        'tstate': tstate,
-                       'tinterval': tinterval});
+                       'tinterval': tinterval,
+                       'preprocessorString': preprocessorString
+                       });
 
    return drawWorker;
 }
