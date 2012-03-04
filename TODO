@@ -1,2 +1,0 @@
-* Allow user to pan through the drawing by clicking and drawing with the mouse
-  * The drawing should probably be paused while they click and drag, at least in the sense that t should be fixed while they drag.
