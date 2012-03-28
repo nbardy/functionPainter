@@ -50,7 +50,7 @@ function drawPicture(imageData, width, height, redFunc, greenFunc, blueFunc, t) 
      }
    }
 
-   self.postMessage({'imageData': imageData, 'maximum': maximum, 'minimum': minimum});
+   self.postMessage({'imageData': imageData});
 }
 
 function clamp(value) {
