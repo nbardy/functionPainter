@@ -1,6 +1,7 @@
 <html>
 <head>
    <title>Function Painter</title>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    <script src="painter.js" /></script>
    <style type="text/css">
       canvas
@@ -56,6 +57,13 @@
             <li>Red: 255*(t%2)</li>
             <li>Green: 255*(t%3)</li>
             <li>Blue: 255*(t%4)</li>
+         </ul>
+      </li>
+      <li>Rainbow:
+         <ul>
+            <li>Red: (function(x, y) { return 1.618*256*(function(x, offset) { var w = 10; x = (x/w + offset) % 12; if (x &lt; 2) return x/2; else if (x &gt;= 2 &amp;&amp; x &lt; 6) return 1; else if (x &gt;= 6 &amp;&amp; x &lt; 8) return (8 - x)/2; else return 0; })(sqrt(x*x + y*y), 4); })(x - 100, y - 300)</li>
+            <li>Green: (function(x, y) { return 1.618*256*(function(x, offset) { var w = 10; x = (x/w + offset) % 12; if (x &lt; 2) return x/2; else if (x &gt;= 2 &amp;&amp; x &lt; 6) return 1; else if (x &gt;= 6 &amp;&amp; x &lt; 8) return (8 - x)/2; else return 0; })(sqrt(x*x + y*y), 0); })(x - 100, y - 300)</li>
+            <li>Blue: (function(x, y) { return 1.618*256*(function(x, offset) { var w = 10; x = (x/w + offset) % 12; if (x &lt; 2) return x/2; else if (x &gt;= 2 &amp;&amp; x &lt; 6) return 1; else if (x &gt;= 6 &amp;&amp; x &lt; 8) return (8 - x)/2; else return 0; })(sqrt(x*x + y*y), 8); })(x - 100, y - 300)</li>
          </ul>
       </li>
    </ul>

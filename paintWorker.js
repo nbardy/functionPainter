@@ -1,9 +1,15 @@
+var xOffset = 0, yOffset = 0;
+
 self.addEventListener('message', function(e) {
    if (e.data.command == 'start') {
       startThisWorker(e);
       }
    else if (e.data.command == 'stop') {
       self.close();
+   }
+   else if (e.data.command == 'pan') {
+      xOffset += e.data.x;
+      yOffset += e.data.y; 
    }
    else { 
       //do nothing if command is not known
@@ -36,11 +42,14 @@ function drawPicture(imageData, width, height, redFunc, greenFunc, blueFunc, t) 
 
    for (y = 0; y < height; y++) {
      for (x = 0; x < width; x++) {
+
+        var pannedX = x - xOffset;
+        var pannedY = y - yOffset;
          
          // calculate RGB values based on sine
-         r = clamp(redFunc(x,y,t));
-         b = clamp(blueFunc(x,y,t));
-         g = clamp(greenFunc(x,y,t));
+         r = clamp(redFunc(pannedX, pannedY, t));
+         b = clamp(blueFunc(pannedX, pannedY, t));
+         g = clamp(greenFunc(pannedX, pannedY, t));
 
          // set red, green, blue, and alpha:
          imageData.data[pos++] = r;
