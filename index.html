@@ -1,6 +1,12 @@
 <html>
 <head>
    <title>Function Painter</title>
+   <script src="modernizer.js" />
+      if(Modernizr.canvas && Modernizr.webworkers)
+         // Your good
+      else
+         alert("Your browser ain't so hot this is not going to go well")
+   </script>
    <script src="painter.js" /></script>
    <style type="text/css">
       canvas
