@@ -1,12 +1,45 @@
+$(document).ready(function() {
+   pullParams()
+   linkify()
+})
+
+function pullParams() {
+   // Pull url paramaters at start
+   var end = document.location.href.length - 1
+   var url = document.location.href
+
+   // Rid the url of the ending / if ther
+   if (document.location.href[end] == '/') {
+      url = url.slice(0,-1)
+   } 
+
+   var parse = $.url(url)
+
+   // Parse and add if exsists
+   if(parse.param('red')) {
+      document.getElementById('redFunction').value = parse.param('red')
+   }
+   if(parse.param('blue')) {
+      document.getElementById('blueFunction').value = parse.param('blue')
+   }
+   if(parse.param('green')) {
+      document.getElementById('greenFunction').value = parse.param('green')
+   }
+}
+
+function updateShareURL() {
+   document.getElementById('url').value = urlize();
+}
+
 function draw() {
-   //Retrieve information from the dom
+   // Retrieve information from the dom
    canvasDraw = document.getElementById('painter');
    context = canvasDraw.getContext('2d');
-   //Retrieve height and width
+   // Retrieve height and width
    width = parseInt(canvasDraw.width);
    height = parseInt(canvasDraw.height);
 
-   //Retrieve functions for drawing each color
+   // Retrieve functions for drawing each color
    redstring = document.getElementById('redFunction').value;
    greenstring = document.getElementById('greenFunction').value;
    bluestring = document.getElementById('blueFunction').value;
@@ -18,16 +51,19 @@ function draw() {
    
    imageData = context.createImageData(width, height);
 
-   //Start worker for drawing data from function
+   // Start worker for drawing data from function
    startDrawWorker(imageData, width, height, redstring, greenstring, bluestring, tinterval, tstate);
    
 
    
-   //Add stop button if time variable is included
+   // Add stop button if time variable is included
    if (tstate) {
       document.getElementById('stop').disabled=false;
       document.getElementById('start').disabled=true;
    }
+
+   // Update url for share
+   updateShareURL()
 
 }
 
@@ -60,4 +96,47 @@ function startDrawWorker(imageData, width, height, redstring, greenstring, blues
 
 function handleMessage(data) {
       context.putImageData(data.imageData, 0, 0);
+}
+
+function urlize() {
+   return window.location.origin + "?" +
+      $.param({
+      red: document.getElementById('redFunction').value,
+      blue: document.getElementById('blueFunction').value,
+      green: document.getElementById('greenFunction').value
+   })
+}
+
+function linkify() {
+   $('.link.single').each(function() {
+      linkify_single(this)
+   })
+   $('.link.multiple').each(function() {
+      linkify_multiple(this)
+   })
+}
+
+function linkify_single(item) {
+   newInside = $("<a>", {
+      href : "/?" + $.param({ red: item.innerText }),
+      html : item.innerText
+   })
+
+   $(item).html(newInside)
+
+}
+
+function linkify_multiple(item) {
+   truck = item
+   newInside = $("<a>", {
+      href : "/?" + $.param({ 
+         red: $(item).find('.red').text(),
+         green: $(item).find('.green').text(),
+         blue: $(item).find('.blue').text()
+      }),
+      html : item.innerHTML
+   })
+
+   $(item).html(newInside)
+
 }

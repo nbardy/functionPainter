@@ -2,16 +2,12 @@
 <head>
    <title>Function Painter</title>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+   <script src="purl.js" /></script>
    <script src="modernizer.js" />
       if(Modernizr.canvas && Modernizr.webworkers)
          // Your good
       else
          alert("Your browser ain't so hot this is not going to go well")
-   </script>
-   <script>
-   // Pull url paramaters at start
-
-      
    </script>
    <script src="painter.js" /></script>
    <style type="text/css">
@@ -30,6 +26,9 @@
       {
          margin: 15px 0;
       }
+      .link {
+         margin-bottom: 5px;
+      }
    </style>
 </head>
 <body>
@@ -42,9 +41,9 @@
    <h2>Input functions as f(x,y):</h2>
 
    <div id="functions">
-      <label for="redFunction">Red Function:</label> <input type="text" value='(21*sin(x+y)*t/50+(x-y))^(3*t+50)' size='100' id="redFunction" /><br />
-      <label for="greenFunction">Green Function:</label> <input type="text" value='(5*sin(x-y)*t/50+(x+y))^t' size='100'id="greenFunction" /><br />
-      <label for="blueFunction">Blue Function:</label> <input type="text" value='123+123*sin(t/20)*sin(t/320*sqrt((123-x)*(123-x) + (45-y)*(45-y)))' size='100'id="blueFunction" /><br />
+      <label for="redFunction">Red Function:</label> <input type="text" size='100' id="redFunction" /><br />
+      <label for="greenFunction">Green Function:</label> <input type="text" size='100'id="greenFunction" /><br />
+      <label for="blueFunction">Blue Function:</label> <input type="text" size='100'id="blueFunction" /><br />
    </div>
 
    <div id="options">
@@ -56,22 +55,31 @@
       <button id="start" type="button" value="Draw it." onclick="javascript:draw();" >Draw It.</button>
       <button id="stop" type="button" value="Stop it."  onclick="javascript:stopDraw();" >Stop It.</button>
    </div>
+   
+   <label for="url">ShareURL:</label><input type="text" id="url"/>
 
    <h2>Things to try</h2>
-   <ul>
-      <li>8/(2*2*(x^2-y^2))*cos((x - y)/2*t)*sin((x+y)/2)*t</li>
-      <li>255*sin(sqrt(pow(x, 2) + pow(y, 2)))</li>
-      <li>(x^x + y^y)^t</li>
-      <li>255/sin(sqrt(x*x + y*y) - t*t*atan2(y, x))</li>
-      <li><strong>WARNING: May induce seizures</strong>
+   <ul id="examples">
+      <li class="link multiple"> <strong> XOR is strange</strong>
          <ul>
-            <li>Red: 255*(t%2)</li>
-            <li>Green: 255*(t%3)</li>
-            <li>Blue: 255*(t%4)</li>
+            <li class="red">(21*sin(x+y)*t/50+(x-y))^(3*t+50)</li>
+            <li class="green">(5*sin(x-y)*t/50+(x+y))^t</li>
+            <li class="blue">23+123*sin(t/20)*sin(t/320*sqrt((123-x)*(123-x) + (45-y)*(45-y)))</li>
          </ul>
       </li>
-      <li>128*sin(x^t*t*atan(x, y) + y^t*t*atan(x, y)) xors make everything go crazy</li>
-      <li>x^t+ y^t</li>
+      <li class="link single" >8/(2*2*(x^2-y^2))*cos((x - y)/2*t)*sin((x+y)/2)*t</li>
+      <li class ="link single">255*sin(sqrt(pow(x, 2) + pow(y, 2)))</li>
+      <li class ="link single">(x^x + y^y)^t</li>
+      <li class ="link single">255/sin(sqrt(x*x + y*y) - t*t*atan2(y, x))</li>
+      <li class ="link multiple"><strong>WARNING: May induce seizures</strong>
+         <ul>
+            <li class="red">255*(t%2)</li>
+            <li class="green">255*(t%3)</li>
+            <li class="blue">255*(t%4)</li>
+         </ul>
+      </li>
+      <li class="link single">128*sin(x^t*t*atan(x, y) + y^t*t*atan(x, y))</li>
+      <li class="link single">x^t+ y^t</li>
    </ul>
 </body>
 </html>
