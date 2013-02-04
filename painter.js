@@ -98,8 +98,9 @@ function handleMessage(data) {
       context.putImageData(data.imageData, 0, 0);
 }
 
+// Turn current example into a link
 function urlize() {
-   return window.location.origin + "?" +
+   return "./?" +
       $.param({
       red: document.getElementById('redFunction').value,
       blue: document.getElementById('blueFunction').value,
@@ -107,6 +108,7 @@ function urlize() {
    })
 }
 
+// Adds links to all examples
 function linkify() {
    $('.link.single').each(function() {
       linkify_single(this)
@@ -118,18 +120,17 @@ function linkify() {
 
 function linkify_single(item) {
    newInside = $("<a>", {
-      href : "/?" + $.param({ red: item.innerText }),
+      href : "./?" + $.param({ red: item.innerText }),
       html : item.innerText
    })
 
    $(item).html(newInside)
-
 }
 
 function linkify_multiple(item) {
    truck = item
    newInside = $("<a>", {
-      href : "/?" + $.param({ 
+      href : "./?" + $.param({ 
          red: $(item).find('.red').text(),
          green: $(item).find('.green').text(),
          blue: $(item).find('.blue').text()
@@ -138,5 +139,4 @@ function linkify_multiple(item) {
    })
 
    $(item).html(newInside)
-
 }
