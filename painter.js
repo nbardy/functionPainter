@@ -128,9 +128,9 @@ function linkify_single(item) {
 }
 
 function linkify_multiple(item) {
-   truck = item
+   base = document.location.host + document.location.pathname 
    newInside = $("<a>", {
-      href : "./?" + $.param({ 
+      href : base + "?" + $.param({ 
          red: $(item).find('.red').text(),
          green: $(item).find('.green').text(),
          blue: $(item).find('.blue').text()
