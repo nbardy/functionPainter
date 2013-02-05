@@ -100,7 +100,8 @@ function handleMessage(data) {
 
 // Turn current example into a link
 function urlize() {
-   return "./?" +
+   var base = document.location.base + document.location.pathname
+   return base + "?" +
       $.param({
       red: document.getElementById('redFunction').value,
       blue: document.getElementById('blueFunction').value,
