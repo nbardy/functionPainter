@@ -14,16 +14,27 @@ function pullParams() {
    } 
 
    var parse = $.url(url)
+  
+   var redValue = parse.param('red')
+   var blueValue = parse.param('blue')
+   var greenValue = parse.param('green')
+
+   // Set default drawing if url is empty
+   if(!(redValue || greenValue || blueValue)) {
+      redValue = "(21*sin(x+y)*t/50+(x-y))^(3*t+50)"
+      greenValue = "(5*sin(x-y)*t/50+(x+y))^t"
+      blueValue = "23+123*sin(t/20)*sin(t/320*sqrt((123-x)*(123-x) + (45-y)*(45-y)))"
+   }
 
    // Parse and add if exsists
-   if(parse.param('red')) {
-      document.getElementById('redFunction').value = parse.param('red')
+   if(redValue) {
+      document.getElementById('redFunction').value = redValue;
    }
-   if(parse.param('blue')) {
-      document.getElementById('blueFunction').value = parse.param('blue')
+   if(blueValue) {
+      document.getElementById('blueFunction').value = blueValue;
    }
-   if(parse.param('green')) {
-      document.getElementById('greenFunction').value = parse.param('green')
+   if(greenValue) {
+      document.getElementById('greenFunction').value = greenValue;
    }
 }
 
